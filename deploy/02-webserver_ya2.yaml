@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staticwebserver
+  namespace: ya2
+  labels:
+    app: staticwebserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: staticwebserver
+  template:
+    metadata:
+      labels:
+        app: staticwebserver
+    spec:
+      containers:
+        - name: staticwebserver
+          image: git.systementor.se/yacloud/dorota2023rpsapi
+          ports:
+            - containerPort: 8080
+          env:
+            - name: RUNENVIRONMENT
+              value: Production
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ya2
+  name: staticwebserver-service
+  annotations:
+    service.beta.kubernetes.io/linode-loadbalancer-throttle: "4"
+  labels:
+    app: staticwebserver
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: staticwebserver
+  sessionAffinity: None
