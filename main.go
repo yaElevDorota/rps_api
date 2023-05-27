@@ -48,7 +48,8 @@ func apiPlay(c *gin.Context) {
 	yourSelection := c.Query("yourSelection")
 	computerSelection := randomizeSelection()
 	winner := "Tie"
-	val := theRandom.Intn(3) + 1
+	val := theRandom.Intn(3)
+
 	message := drawList[val]
 	if yourSelection == "STONE" && computerSelection == "SCISSOR" {
 		winner = "You"
@@ -81,7 +82,7 @@ func apiPlay(c *gin.Context) {
 }
 
 func randomizeSelection() string {
-	val := theRandom.Intn(3) + 1
+	val := theRandom.Intn(2) + 1
 	if val == 1 {
 		return "STONE"
 	}
@@ -91,7 +92,7 @@ func randomizeSelection() string {
 	if val == 3 {
 		return "BAG"
 	}
-	return "ERROR"
+	return "STONE"
 
 }
 
@@ -118,7 +119,7 @@ func main() {
 	// router.GET("/api/employees", employeesJson)
 	// router.GET("/api/addemployee", addEmployee)
 	// router.GET("/api/addmanyemployees", addManyEmployees)
-	
+
 	router.Run(":8080")
 
 }

@@ -1,16 +1,8 @@
 # kubectl --kubeconfig=c:\Users\User\_myWork\Kloster\Kloster1.yaml --namespace=ya2 get pods
 # 
 # kubectl --kubeconfig=c:\Users\User\_myWork\Kloster\Kloster1.yaml --namespace=ya2 exec -it mysql-5f46cd7d5c-jz9xj sh
-# create database salary
+# create database Games
 
-
-# INSTALLERA MYSQL
-#         vi ska ha permanent lagring av databaserna
-# ändra på staticwebserver  yagolangapi
-#                           login till git.systementor.se 
-#                           (secret)
-# hur man tar fram en prompt i en container       
-# databas-fix  MySQL - create database
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,16 +18,6 @@ spec:
       labels:
         app: mysql
     spec:
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #       - matchExpressions:
-      #         - key: sql
-      #           operator: In
-      #           values:
-      #           - "mysqlnode"
-
       terminationGracePeriodSeconds: 30
       hostname: mysql01
       containers:
